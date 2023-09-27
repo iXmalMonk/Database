@@ -5,4 +5,4 @@ create table fc.client_group(
     on delete cascade,
     foreign key(group_id) references fc.group(id)
     on delete cascade
-)   
+)

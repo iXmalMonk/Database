@@ -1,0 +1,6 @@
+{
+    "host":"localhost",
+    "database":"fitness_center",
+    "user":"postgres",
+    "password":"0001"
+}
