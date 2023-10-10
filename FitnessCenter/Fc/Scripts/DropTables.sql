@@ -1,3 +1,4 @@
+truncate table fc.body_mass_index restart identity cascade;
 truncate table fc.client restart identity cascade;
 truncate table fc.client_group restart identity cascade;
 truncate table fc.client_subscription restart identity cascade;
@@ -10,6 +11,7 @@ truncate table fc.trainer restart identity cascade;
 truncate table fc.type_of_occupation restart identity cascade;
 truncate table fc.visit restart identity cascade;
 
+drop table if exists fc.body_mass_index cascade;
 drop table if exists fc.client cascade;
 drop table if exists fc.client_group cascade;
 drop table if exists fc.client_subscription cascade;
