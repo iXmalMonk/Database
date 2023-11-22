@@ -21,3 +21,12 @@
 
 --select c.full_name, bmi.weight, bmi.height from fc.client c inner join fc.body_mass_index bmi on c.body_mass_index_id = bmi.id where bmi.bms > 25;
 
+--select * from fc.client where body_mass_index_id = any (select id from fc.body_mass_index where weight > 80);
+--select * from fc.client where body_mass_index_id = all (select id from fc.body_mass_index where weight > 80);
+--select * from fc.client c where exists (select id from fc.body_mass_index bmi where bmi.id = c.body_mass_index_id and bmi.bms > 25);
+
+--select c.full_name from fc.client c where c.id = (select bmi.id from fc.body_mass_index bmi where bmi.id = c.id and bmi.bms between 18 and 25);
+
+--insert into fc.body_mass_index (weight, height) values (80.8, 1.75);
+--update fc.body_mass_index set weight = 80 where id = 1;
+--delete from fc.body_mass_index where id = 1;
