@@ -1,0 +1,79 @@
+﻿@model TimetableOfClassesModel
+
+@{
+    ViewData["Title"] = "TimetableOfClasses";
+}
+
+<h1>TimetableOfClasses</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">StartTime</th>
+            <th scope="col">EndTime</th>
+            <th scope="col">Title</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var toc in Model.TOC)
+        {
+            <tr>
+                <th scope="row">@toc.Id</th>
+                <td>@toc.StartTime</td>
+                <td>@toc.EndTime</td>
+                <td>@toc.Title</td>
+                <td>
+                    <form action="/TimetableOfClasses/Delete/@toc.Id">
+                        <button type="submit" class="btn btn-danger m-1">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<form action="/TimetableOfClasses/Insert">
+    <div class="d-flex m-1">
+        <label class="m-1">StartTime - EndTime:</label>
+        <select class="form-control" name="idTime" required>
+            @foreach (var time in Model.Time)
+            {
+                <option value="@time.Id">@time.StartTime + @time.EndTime</option>
+            }
+        </select>
+        <label class="m-1">Title:</label>
+        <select class="form-control" name="idDayOfTheWeek" required>
+            @foreach (var dayOfTheWeek in Model.DayOfTheWeek)
+            {
+                <option value="@dayOfTheWeek.Id">@dayOfTheWeek.Title</option>
+            }
+        </select>
+        <button class="btn btn-success m-1" type="submit">Insert</button>
+    </div>
+</form>
+<form action="/TimetableOfClasses/Update">
+    <div class="d-flex m-1">
+        <label class="m-1">Id:</label>
+        <select class="form-control" name="id" required>
+            @foreach (var toc in Model.TOC)
+            {
+                <option value="@toc.Id">@toc.Id</option>
+            }
+        </select>
+        <label class="m-1">StartTime - EndTime:</label>
+        <select class="form-control" name="idTime" required>
+            @foreach (var time in Model.Time)
+            {
+                <option value="@time.Id">@time.StartTime + @time.EndTime</option>
+            }
+        </select>
+        <label class="m-1">Title:</label>
+        <select class="form-control" name="idDayOfTheWeek" required>
+            @foreach (var dayOfTheWeek in Model.DayOfTheWeek)
+            {
+                <option value="@dayOfTheWeek.Id">@dayOfTheWeek.Title</option>
+            }
+        </select>
+        <button class="btn btn-secondary m-1" type="submit">Update</button>
+    </div>
+</form>

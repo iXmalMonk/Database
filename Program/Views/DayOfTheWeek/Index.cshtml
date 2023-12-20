@@ -1,0 +1,51 @@
+﻿@model List<DayOfTheWeekModel>
+
+@{
+    ViewData["Title"] = "DayOfTheWeek";
+}
+
+<h1>DayOfTheWeek</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var dayOfTheWeek in Model)
+        {
+            <tr>
+                <th scope="row">@dayOfTheWeek.Id</th>
+                <td>@dayOfTheWeek.Title</td>
+                <td>
+                    <form action="/DayOfTheWeek/Delete/@dayOfTheWeek.Id">
+                        <button type="submit" class="btn btn-danger m-1">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<form action="/DayOfTheWeek/Insert">
+    <div class="d-flex m-1">
+        <label class="m-1">Title:</label>
+        <input class="form-control" type="text" name="title" required />
+        <button class="btn btn-success m-1" type="submit">Insert</button>
+    </div>
+</form>
+<form action="/DayOfTheWeek/Update">
+    <div class="d-flex m-1">
+        <label class="m-1">Id:</label>
+        <select class="form-control" name="id" required>
+            @foreach (var dayOfTheWeek in Model)
+            {
+                <option value="@dayOfTheWeek.Id">@dayOfTheWeek.Id</option>
+            }
+        </select>
+        <label class="m-1">Title:</label>
+        <input class="form-control" type="text" name="title" required />
+        <button class="btn btn-secondary m-1" type="submit">Update</button>
+    </div>
+</form>

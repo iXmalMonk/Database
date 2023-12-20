@@ -1,7 +1,7 @@
 create or replace procedure fc.body_mass_index_client_procedure_insert(
     p_full_name fc.fn,
-    p_weight integer,
-    p_height integer
+    p_weight decimal,
+    p_height decimal
 )
 as
 $$

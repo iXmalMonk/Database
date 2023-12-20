@@ -1,0 +1,103 @@
+﻿@model GroupModel
+
+@{
+    ViewData["Title"] = "Group";
+}
+
+<h1>Group</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Title</th>
+            <th scope="col">TimetableOfClassesId</th>
+            <th scope="col">TypeOfOccupationId</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var g in Model.G)
+        {
+            string timetableOfClassesStartTime = "";
+            string timetableOfClassesEndTime = "";
+            string timetableOfClassesTitle = "";
+            foreach (var timetableOfClasses in Model.TimetableOfClasses.TOC)
+            {
+                if (timetableOfClasses.Id == g.TimetableOfClassesId)
+                {
+                    timetableOfClassesStartTime = timetableOfClasses.StartTime;
+                    timetableOfClassesEndTime = timetableOfClasses.EndTime;
+                    timetableOfClassesTitle = timetableOfClasses.Title;
+                }
+            }
+            string typeOfOccupationTitle = "";
+            foreach (var typeOfOccupation in Model.TypeOfOccupation)
+            {
+                if (typeOfOccupation.Id == g.TypeOfOccupationId)
+                {
+                    typeOfOccupationTitle = typeOfOccupation.Title;
+                }
+            }
+            <tr>
+                <th scope="row">@g.Id</th>
+                <td>@g.Title</td>
+                <td>@timetableOfClassesStartTime - @timetableOfClassesEndTime @timetableOfClassesTitle</td>
+                <td>@typeOfOccupationTitle</td>
+                <td>
+                    <form action="/Group/Delete/@g.Id">
+                        <button type="submit" class="btn btn-danger m-1">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<form action="/Group/Insert">
+    <div class="d-flex m-1">
+        <label class="m-1">Title:</label>
+        <input class="form-control" type="text" name="title" required />
+        <label class="m-1">TimetableOfClassesId:</label>
+        <select class="form-control" name="timetableOfClassesId" required>
+            @foreach (var timetableOfClasses in Model.TimetableOfClasses.TOC)
+            {
+                <option value="@timetableOfClasses.Id">@timetableOfClasses.StartTime - @timetableOfClasses.EndTime @timetableOfClasses.Title</option>
+            }
+        </select>
+        <label class="m-1">TypeOfOccupationId:</label>
+        <select class="form-control" name="typeOfOccupationId" required>
+            @foreach (var typeOfOccupation in Model.TypeOfOccupation)
+            {
+                <option value="@typeOfOccupation.Id">@typeOfOccupation.Title</option>
+            }
+        </select>
+        <button class="btn btn-success m-1" type="submit">Insert</button>
+    </div>
+</form>
+<form action="/Group/Update">
+    <div class="d-flex m-1">
+        <label class="m-1">Id:</label>
+        <select class="form-control" name="id" required>
+            @foreach (var g in Model.G)
+            {
+                <option value="@g.Id">@g.Id</option>
+            }
+        </select>
+        <label class="m-1">Title:</label>
+        <input class="form-control" type="text" name="title" required />
+        <label class="m-1">TimetableOfClassesId:</label>
+        <select class="form-control" name="timetableOfClassesId" required>
+            @foreach (var timetableOfClasses in Model.TimetableOfClasses.TOC)
+            {
+                <option value="@timetableOfClasses.Id">@timetableOfClasses.StartTime - @timetableOfClasses.EndTime @timetableOfClasses.Title</option>
+            }
+        </select>
+        <label class="m-1">TypeOfOccupationId:</label>
+        <select class="form-control" name="typeOfOccupationId" required>
+            @foreach (var typeOfOccupation in Model.TypeOfOccupation)
+            {
+                <option value="@typeOfOccupation.Id">@typeOfOccupation.Title</option>
+            }
+        </select>
+        <button class="btn btn-secondary m-1" type="submit">Update</button>
+    </div>
+</form>

@@ -1,0 +1,44 @@
+﻿@model List<BodyMassIndexModel>
+
+@{
+    ViewData["Title"] = "BodyMassIndex";
+}
+
+<h1>BodyMassIndex</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Weight</th>
+            <th scope="col">Height</th>
+            <th scope="col">Bms</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var bodyMassIndex in Model)
+        {
+            <tr>
+                <th scope="row">@bodyMassIndex.Id</th>
+                <td>@bodyMassIndex.Weight</td>
+                <td>@bodyMassIndex.Height</td>
+                <td>@bodyMassIndex.Bms</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<form action="/BodyMassIndex/Update">
+    <div class="d-flex m-1">
+        <label class="m-1">Id:</label>
+        <select class="form-control" name="id" required>
+            @foreach (var bodyMassIndex in Model)
+            {
+                <option value="@bodyMassIndex.Id">@bodyMassIndex.Id</option>
+            }
+        </select>
+        <label class="m-1">Weight:</label>
+        <input class="form-control" type="text" name="weight" required />
+        <label class="m-1">Height:</label>
+        <input class="form-control" type="text" name="height" required />
+        <button class="btn btn-secondary m-1" type="submit">Update</button>
+    </div>
+</form>

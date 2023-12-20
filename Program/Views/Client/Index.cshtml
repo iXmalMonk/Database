@@ -1,0 +1,43 @@
+﻿@model List<ClientModel>
+
+@{
+    ViewData["Title"] = "Client";
+}
+
+<h1>Client</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">FullName</th>
+            <th scope="col">BodyMassIndexId</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var client in Model)
+        {
+            <tr>
+                <th scope="row">@client.Id</th>
+                <td>@client.FullName</td>
+                <td>@client.BodyMassIndexId</td>
+                <td>
+                    <form action="/Client/Delete/@client.Id">
+                        <button type="submit" class="btn btn-danger m-1">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<form action="/Client/Insert">
+    <div class="d-flex m-1">
+        <label class="m-1">FullName:</label>
+        <input class="form-control" type="text" name="fullName" required />
+        <label class="m-1">Weight:</label>
+        <input class="form-control" type="text" name="weight" required />
+        <label class="m-1">Height:</label>
+        <input class="form-control" type="text" name="height" required />
+        <button class="btn btn-success m-1" type="submit">Insert</button>
+    </div>
+</form>

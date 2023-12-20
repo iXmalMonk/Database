@@ -1,0 +1,57 @@
+﻿@model List<SubscriptionModel>
+
+@{
+    ViewData["Title"] = "Subscription";
+}
+
+<h1>Subscription</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Visit</th>
+            <th scope="col">TypeOfOccupationId</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var subscription in Model)
+        {
+            <tr>
+                <th scope="row">@subscription.Id</th>
+                <td>@subscription.Visit</td>
+                <td>@subscription.TypeOfOccupationId</td>
+                <td>
+                    <form action="/Subscription/Delete/@subscription.Id">
+                        <button type="submit" class="btn btn-danger m-1">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<form action="/TypeOfOccupation/Insert">
+    <div class="d-flex m-1">
+        <label class="m-1">ClientId:</label>
+        <input class="form-control" type="text" name="clientId" required />
+        <label class="m-1">GroupId:</label>
+        <input class="form-control" type="text" name="groupId" required />
+        <label class="m-1">Visit:</label>
+        <input class="form-control" type="text" name="visit" required />
+        <button class="btn btn-success m-1" type="submit">Insert</button>
+    </div>
+</form>
+<form action="/Subscription/Update">
+    <div class="d-flex m-1">
+        <label class="m-1">Id:</label>
+        <select class="form-control" name="id" required>
+            @foreach (var subscription in Model)
+            {
+                <option value="@subscription.Id">@subscription.Id</option>
+            }
+        </select>
+        <label class="m-1">Visit:</label>
+        <input class="form-control" type="text" name="visit" required />
+        <button class="btn btn-secondary m-1" type="submit">Update</button>
+    </div>
+</form>

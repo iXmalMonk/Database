@@ -1,0 +1,57 @@
+﻿@model List<VisitModel>
+
+@{
+    ViewData["Title"] = "Visit";
+}
+
+<h1>Visit</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">DateArrival</th>
+            <th scope="col">DateOfDeparture</th>
+            <th scope="col">ClientId</th>
+            <th scope="col">TrainerId</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var visit in Model)
+        {
+            <tr>
+                <th scope="row">@visit.Id</th>
+                <td>@visit.DateArrival</td>
+                <td>@visit.DateOfDeparture</td>
+                @if (visit.ClientId == 0)
+                {
+                    <td>-</td>
+                }
+                else
+                {
+                    <td>@visit.ClientId</td>
+                }
+                @if (visit.TrainerId == 0)
+                {
+                    <td>-</td>
+                }
+                else
+                {
+                    <td>@visit.TrainerId</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+<form action="/Visit/Insert">
+    <div class="d-flex m-1">
+        <label class="m-1">DateArrival:</label>
+        <input class="form-control" type="text" name="dateArrival" required />
+        <label class="m-1">DateOfDeparture:</label>
+        <input class="form-control" type="text" name="dateOfDeparture" required />
+        <label class="m-1">ClientId:</label>
+        <input class="form-control" type="text" name="clientId" required />
+        <label class="m-1">TrainerId:</label>
+        <input class="form-control" type="text" name="trainerId" required />
+        <button class="btn btn-success m-1" type="submit">Insert</button>
+    </div>
+</form>
