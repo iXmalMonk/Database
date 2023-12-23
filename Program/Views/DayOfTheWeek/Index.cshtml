@@ -8,7 +8,6 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">Id</th>
             <th scope="col">Title</th>
             <th scope="col">Action</th>
         </tr>
@@ -17,7 +16,6 @@
         @foreach (var dayOfTheWeek in Model)
         {
             <tr>
-                <th scope="row">@dayOfTheWeek.Id</th>
                 <td>@dayOfTheWeek.Title</td>
                 <td>
                     <form action="/DayOfTheWeek/Delete/@dayOfTheWeek.Id">
@@ -37,11 +35,10 @@
 </form>
 <form action="/DayOfTheWeek/Update">
     <div class="d-flex m-1">
-        <label class="m-1">Id:</label>
         <select class="form-control" name="id" required>
             @foreach (var dayOfTheWeek in Model)
             {
-                <option value="@dayOfTheWeek.Id">@dayOfTheWeek.Id</option>
+                <option value="@dayOfTheWeek.Id">@dayOfTheWeek.Title</option>
             }
         </select>
         <label class="m-1">Title:</label>

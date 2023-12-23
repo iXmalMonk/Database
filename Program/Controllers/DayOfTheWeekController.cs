@@ -13,14 +13,14 @@ namespace Program.Controllers
             using (var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection")))
             {
                 connection.Open();
-                var command = new NpgsqlCommand("select * from fc.day_of_the_week", connection);
+                var command = new NpgsqlCommand("select dotw.id, dotw.title from fc.day_of_the_week dotw", connection);
                 var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
                     var dayOfTheWeek = new DayOfTheWeekModel
                     {
-                        Id = reader.GetInt32(1),
-                        Title = reader.GetString(2)
+                        Id = reader.GetInt32(0),
+                        Title = reader.GetString(1)
                     };
                     dayOfTheWeekList.Add(dayOfTheWeek);
                 }

@@ -8,7 +8,6 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">Id</th>
             <th scope="col">Title</th>
             <th scope="col">Action</th>
         </tr>
@@ -17,7 +16,6 @@
         @foreach (var typeOfOccupation in Model)
         {
             <tr>
-                <th scope="row">@typeOfOccupation.Id</th>
                 <td>@typeOfOccupation.Title</td>
                 <td>
                     <form action="/TypeOfOccupation/Delete/@typeOfOccupation.Id">
@@ -37,11 +35,10 @@
 </form>
 <form action="/TypeOfOccupation/Update">
     <div class="d-flex m-1">
-        <label class="m-1">Id:</label>
         <select class="form-control" name="id" required>
             @foreach (var typeOfOccupation in Model)
             {
-                <option value="@typeOfOccupation.Id">@typeOfOccupation.Id</option>
+                <option value="@typeOfOccupation.Id">@typeOfOccupation.Title</option>
             }
         </select>
         <label class="m-1">Title:</label>

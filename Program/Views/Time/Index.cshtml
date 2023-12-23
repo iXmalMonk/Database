@@ -8,7 +8,6 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">Id</th>
             <th scope="col">StartTime</th>
             <th scope="col">EndTime</th>
             <th scope="col">Action</th>
@@ -18,7 +17,6 @@
         @foreach (var time in Model)
         {
             <tr>
-                <th scope="row">@time.Id</th>
                 <td>@time.StartTime</td>
                 <td>@time.EndTime</td>
                 <td>
@@ -33,25 +31,24 @@
 <form action="/Time/Insert">
     <div class="d-flex m-1">
         <label class="m-1">StartTime:</label>
-        <input class="form-control" type="text" name="start_time" required />
+        <input class="form-control" type="text" name="startTime" required />
         <label class="m-1">EndTime:</label>
-        <input class="form-control" type="text" name="end_time" required />
+        <input class="form-control" type="text" name="endTime" required />
         <button class="btn btn-success m-1" type="submit">Insert</button>
     </div>
 </form>
 <form action="/Time/Update">
     <div class="d-flex m-1">
-        <label class="m-1">Id:</label>
         <select class="form-control" name="id" required>
             @foreach (var time in Model)
             {
-                <option value="@time.Id">@time.Id</option>
+                <option value="@time.Id">@time.StartTime - @time.EndTime</option>
             }
         </select>
         <label class="m-1">StartTime:</label>
-        <input class="form-control" type="text" name="start_time" required />
+        <input class="form-control" type="text" name="startTime" required />
         <label class="m-1">EndTime:</label>
-        <input class="form-control" type="text" name="end_time" required />
+        <input class="form-control" type="text" name="endTime" required />
         <button class="btn btn-secondary m-1" type="submit">Update</button>
     </div>
 </form>

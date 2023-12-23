@@ -13,15 +13,14 @@ namespace Program.Controllers
             using (var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection")))
             {
                 connection.Open();
-                var command = new NpgsqlCommand("select * from fc.client", connection);
+                var command = new NpgsqlCommand("select c.id, c.full_name from fc.client c", connection);
                 var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
                     var client = new ClientModel
                     {
-                        Id = reader.GetInt32(1),
-                        FullName = reader.GetString(2),
-                        BodyMassIndexId = reader.GetInt32(3)
+                        Id = reader.GetInt32(0),
+                        FullName = reader.GetString(1)
                     };
                     clientList.Add(client);
                 }

@@ -8,9 +8,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">Id</th>
             <th scope="col">FullName</th>
-            <th scope="col">BodyMassIndexId</th>
             <th scope="col">Action</th>
         </tr>
     </thead>
@@ -18,9 +16,7 @@
         @foreach (var client in Model)
         {
             <tr>
-                <th scope="row">@client.Id</th>
                 <td>@client.FullName</td>
-                <td>@client.BodyMassIndexId</td>
                 <td>
                     <form action="/Client/Delete/@client.Id">
                         <button type="submit" class="btn btn-danger m-1">Delete</button>

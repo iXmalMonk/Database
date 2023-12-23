@@ -1,4 +1,4 @@
-﻿@model List<SubscriptionModel>
+﻿@model SubscriptionModel
 
 @{
     ViewData["Title"] = "Subscription";
@@ -8,21 +8,21 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">Id</th>
+            <th scope="col">FullName</th>
+            <th scope="col">Group</th>
             <th scope="col">Visit</th>
-            <th scope="col">TypeOfOccupationId</th>
             <th scope="col">Action</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var subscription in Model)
+        @foreach (var s in Model.S)
         {
             <tr>
-                <th scope="row">@subscription.Id</th>
-                <td>@subscription.Visit</td>
-                <td>@subscription.TypeOfOccupationId</td>
+                <td>@s.ClientFullName</td>
+                <td>@s.GroupTitle</td>
+                <td>@s.Visit</td>
                 <td>
-                    <form action="/Subscription/Delete/@subscription.Id">
+                    <form action="/Subscription/Delete/@s.Id">
                         <button type="submit" class="btn btn-danger m-1">Delete</button>
                     </form>
                 </td>
@@ -30,12 +30,22 @@
         }
     </tbody>
 </table>
-<form action="/TypeOfOccupation/Insert">
+<form action="/Subscription/Insert">
     <div class="d-flex m-1">
-        <label class="m-1">ClientId:</label>
-        <input class="form-control" type="text" name="clientId" required />
-        <label class="m-1">GroupId:</label>
-        <input class="form-control" type="text" name="groupId" required />
+        <label class="m-1">Client:</label>
+        <select class="form-control" name="clientId" required>
+            @foreach (var client in Model.Client)
+            {
+                <option value="@client.Id">@client.FullName</option>
+            }
+        </select>
+        <label class="m-1">Group:</label>
+        <select class="form-control" name="groupId" required>
+            @foreach (var g in Model.Group.G)
+            {
+                <option value="@g.Id">@g.Title</option>
+            }
+        </select>
         <label class="m-1">Visit:</label>
         <input class="form-control" type="text" name="visit" required />
         <button class="btn btn-success m-1" type="submit">Insert</button>
@@ -43,11 +53,10 @@
 </form>
 <form action="/Subscription/Update">
     <div class="d-flex m-1">
-        <label class="m-1">Id:</label>
         <select class="form-control" name="id" required>
-            @foreach (var subscription in Model)
+            @foreach (var s in Model.S)
             {
-                <option value="@subscription.Id">@subscription.Id</option>
+                <option value="@s.Id">@s.ClientFullName @s.GroupTitle</option>
             }
         </select>
         <label class="m-1">Visit:</label>

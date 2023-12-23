@@ -8,7 +8,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">Id</th>
+            <th scope="col">FullName</th>
             <th scope="col">Weight</th>
             <th scope="col">Height</th>
             <th scope="col">Bms</th>
@@ -18,7 +18,7 @@
         @foreach (var bodyMassIndex in Model)
         {
             <tr>
-                <th scope="row">@bodyMassIndex.Id</th>
+                <th scope="row">@bodyMassIndex.ClientFullName</th>
                 <td>@bodyMassIndex.Weight</td>
                 <td>@bodyMassIndex.Height</td>
                 <td>@bodyMassIndex.Bms</td>
@@ -28,11 +28,10 @@
 </table>
 <form action="/BodyMassIndex/Update">
     <div class="d-flex m-1">
-        <label class="m-1">Id:</label>
         <select class="form-control" name="id" required>
             @foreach (var bodyMassIndex in Model)
             {
-                <option value="@bodyMassIndex.Id">@bodyMassIndex.Id</option>
+                <option value="@bodyMassIndex.Id">@bodyMassIndex.ClientFullName</option>
             }
         </select>
         <label class="m-1">Weight:</label>

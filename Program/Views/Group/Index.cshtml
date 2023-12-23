@@ -8,26 +8,25 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">Id</th>
             <th scope="col">Title</th>
-            <th scope="col">TimetableOfClassesId</th>
-            <th scope="col">TypeOfOccupationId</th>
+            <th scope="col">TimetableOfClasses</th>
+            <th scope="col">TypeOfOccupation</th>
             <th scope="col">Action</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var g in Model.G)
         {
+            string timetableOfClassesTitle = "";
             string timetableOfClassesStartTime = "";
             string timetableOfClassesEndTime = "";
-            string timetableOfClassesTitle = "";
             foreach (var timetableOfClasses in Model.TimetableOfClasses.TOC)
             {
                 if (timetableOfClasses.Id == g.TimetableOfClassesId)
                 {
-                    timetableOfClassesStartTime = timetableOfClasses.StartTime;
-                    timetableOfClassesEndTime = timetableOfClasses.EndTime;
-                    timetableOfClassesTitle = timetableOfClasses.Title;
+                    timetableOfClassesTitle = timetableOfClasses.DayOfTheWeekTitle;
+                    timetableOfClassesStartTime = timetableOfClasses.TimeStartTime;
+                    timetableOfClassesEndTime = timetableOfClasses.TimeEndTime;
                 }
             }
             string typeOfOccupationTitle = "";
@@ -39,9 +38,8 @@
                 }
             }
             <tr>
-                <th scope="row">@g.Id</th>
                 <td>@g.Title</td>
-                <td>@timetableOfClassesStartTime - @timetableOfClassesEndTime @timetableOfClassesTitle</td>
+                <td>@timetableOfClassesTitle @timetableOfClassesStartTime - @timetableOfClassesEndTime</td>
                 <td>@typeOfOccupationTitle</td>
                 <td>
                     <form action="/Group/Delete/@g.Id">
@@ -58,9 +56,9 @@
         <input class="form-control" type="text" name="title" required />
         <label class="m-1">TimetableOfClassesId:</label>
         <select class="form-control" name="timetableOfClassesId" required>
-            @foreach (var timetableOfClasses in Model.TimetableOfClasses.TOC)
+            @foreach (var toc in Model.TimetableOfClasses.TOC)
             {
-                <option value="@timetableOfClasses.Id">@timetableOfClasses.StartTime - @timetableOfClasses.EndTime @timetableOfClasses.Title</option>
+                <option value="@toc.Id">@toc.DayOfTheWeekTitle @toc.TimeStartTime - @toc.TimeEndTime</option>
             }
         </select>
         <label class="m-1">TypeOfOccupationId:</label>
@@ -75,20 +73,19 @@
 </form>
 <form action="/Group/Update">
     <div class="d-flex m-1">
-        <label class="m-1">Id:</label>
         <select class="form-control" name="id" required>
             @foreach (var g in Model.G)
             {
-                <option value="@g.Id">@g.Id</option>
+                <option value="@g.Id">@g.Title</option>
             }
         </select>
         <label class="m-1">Title:</label>
         <input class="form-control" type="text" name="title" required />
         <label class="m-1">TimetableOfClassesId:</label>
         <select class="form-control" name="timetableOfClassesId" required>
-            @foreach (var timetableOfClasses in Model.TimetableOfClasses.TOC)
+            @foreach (var toc in Model.TimetableOfClasses.TOC)
             {
-                <option value="@timetableOfClasses.Id">@timetableOfClasses.StartTime - @timetableOfClasses.EndTime @timetableOfClasses.Title</option>
+                <option value="@toc.Id">@toc.DayOfTheWeekTitle @toc.TimeStartTime - @toc.TimeEndTime</option>
             }
         </select>
         <label class="m-1">TypeOfOccupationId:</label>

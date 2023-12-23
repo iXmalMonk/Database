@@ -13,14 +13,14 @@ namespace Program.Controllers
             using (var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection")))
             {
                 connection.Open();
-                var command = new NpgsqlCommand("select * from fc.type_of_occupation", connection);
+                var command = new NpgsqlCommand("select too.id, too.title from fc.type_of_occupation too", connection);
                 var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
                     var typeOfOccupation = new TypeOfOccupationModel
                     {
-                        Id = reader.GetInt32(1),
-                        Title = reader.GetString(2)
+                        Id = reader.GetInt32(0),
+                        Title = reader.GetString(1)
                     };
                     typeOfOccupationList.Add(typeOfOccupation);
                 }

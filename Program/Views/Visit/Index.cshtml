@@ -1,4 +1,4 @@
-﻿@model List<VisitModel>
+﻿@model VisitModel
 
 @{
     ViewData["Title"] = "Visit";
@@ -8,50 +8,66 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">Id</th>
             <th scope="col">DateArrival</th>
             <th scope="col">DateOfDeparture</th>
-            <th scope="col">ClientId</th>
-            <th scope="col">TrainerId</th>
+            <th scope="col">Client</th>
+            <th scope="col">Trainer</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var visit in Model)
+        @foreach (var v in Model.V)
         {
             <tr>
-                <th scope="row">@visit.Id</th>
-                <td>@visit.DateArrival</td>
-                <td>@visit.DateOfDeparture</td>
-                @if (visit.ClientId == 0)
-                {
-                    <td>-</td>
-                }
-                else
-                {
-                    <td>@visit.ClientId</td>
-                }
-                @if (visit.TrainerId == 0)
-                {
-                    <td>-</td>
-                }
-                else
-                {
-                    <td>@visit.TrainerId</td>
-                }
+                <td>@v.DateArrival</td>
+                <td>@v.DateOfDeparture</td>
+                <td>@v.ClientFullName</td>
+                <td>@v.TrainerFullName</td>
             </tr>
         }
     </tbody>
 </table>
-<form action="/Visit/Insert">
+<form action="/Visit/Insert" onsubmit="return validateForm()">
     <div class="d-flex m-1">
         <label class="m-1">DateArrival:</label>
         <input class="form-control" type="text" name="dateArrival" required />
         <label class="m-1">DateOfDeparture:</label>
         <input class="form-control" type="text" name="dateOfDeparture" required />
-        <label class="m-1">ClientId:</label>
-        <input class="form-control" type="text" name="clientId" required />
+        <label class="m-1">Client:</label>
+        <select class="form-control" name="clientId" id="clientSelect" required>
+            <option value="0">Client</option>
+            @foreach (var client in Model.Client)
+            {
+                <option value="@client.Id">@client.FullName</option>
+            }
+        </select>
         <label class="m-1">TrainerId:</label>
-        <input class="form-control" type="text" name="trainerId" required />
+        <select class="form-control" name="trainerId" id="trainerSelect" required>
+            <option value="0">Trainer</option>
+            @foreach (var t in Model.Trainer.T)
+            {
+                <option value="@t.Id">@t.FullName</option>
+            }
+        </select>
         <button class="btn btn-success m-1" type="submit">Insert</button>
     </div>
 </form>
+<script>
+    var clientSelect = document.getElementById("clientSelect");
+    var trainerSelect = document.getElementById("trainerSelect");
+
+    clientSelect.addEventListener("change", function () {
+        trainerSelect.selectedIndex = 0;
+    });
+
+    trainerSelect.addEventListener("change", function () {
+        clientSelect.selectedIndex = 0;
+    });
+
+    function validateForm() {
+        if (clientSelect.value === "0" && trainerSelect.value === "0") {
+            alert("Please select either a client or a trainer.");
+            return false;
+        }
+        return true;
+    }
+</script>

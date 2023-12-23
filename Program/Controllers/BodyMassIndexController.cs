@@ -13,16 +13,17 @@ namespace Program.Controllers
             using (var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection")))
             {
                 connection.Open();
-                var command = new NpgsqlCommand("select * from fc.body_mass_index", connection);
+                var command = new NpgsqlCommand("select bmi.id, bmi.weight, bmi.height, bmi.bms, c.full_name from fc.body_mass_index bmi join fc.client c on bmi.id = c.body_mass_index_id", connection);
                 var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
                     var bodyMassIndex = new BodyMassIndexModel
                     {
-                        Id = reader.GetInt32(1),
-                        Weight = reader.GetFloat(2),
-                        Height = reader.GetFloat(3),
-                        Bms = reader.GetFloat(4)
+                        Id = reader.GetInt32(0),
+                        Weight = reader.GetFloat(1),
+                        Height = reader.GetFloat(2),
+                        Bms = reader.GetFloat(3),
+                        ClientFullName = reader.GetString(4)
                     };
                     bodyMassIndexList.Add(bodyMassIndex);
                 }

@@ -13,15 +13,15 @@ namespace Program.Controllers
             using (var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection")))
             {
                 connection.Open();
-                var command = new NpgsqlCommand("select * from fc.time", connection);
+                var command = new NpgsqlCommand("select t.id, t.start_time, t.end_time from fc.time t", connection);
                 var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
                     var time = new TimeModel
                     {
-                        Id = reader.GetInt32(1),
-                        StartTime = reader.GetString(2),
-                        EndTime = reader.GetString(3)
+                        Id = reader.GetInt32(0),
+                        StartTime = reader.GetString(1),
+                        EndTime = reader.GetString(2)
                     };
                     timeList.Add(time);
                 }
@@ -30,22 +30,22 @@ namespace Program.Controllers
             return View(timeList);
         }
 
-        public IActionResult Insert(string start_time, string end_time)
+        public IActionResult Insert(string startTime, string endTime)
         {
             var configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.Development.json").Build();
             using (var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection")))
             {
                 connection.Open();
                 var command = new NpgsqlCommand("insert into fc.time (start_time, end_time) values (@start_time, @end_time)", connection);
-                command.Parameters.AddWithValue("start_time", start_time);
-                command.Parameters.AddWithValue("end_time", end_time);
+                command.Parameters.AddWithValue("start_time", startTime);
+                command.Parameters.AddWithValue("end_time", endTime);
                 command.ExecuteNonQuery();
                 connection.Close();
             }
             return RedirectToAction("Index");
         }
 
-        public IActionResult Update(int id, string start_time, string end_time)
+        public IActionResult Update(int id, string startTime, string endTime)
         {
             var configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.Development.json").Build();
             using (var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection")))
@@ -53,8 +53,8 @@ namespace Program.Controllers
                 connection.Open();
                 var command = new NpgsqlCommand("update fc.time set start_time = @start_time, end_time = @end_time where id = @id", connection);
                 command.Parameters.AddWithValue("id", id);
-                command.Parameters.AddWithValue("start_time", start_time);
-                command.Parameters.AddWithValue("end_time", end_time);
+                command.Parameters.AddWithValue("start_time", startTime);
+                command.Parameters.AddWithValue("end_time", endTime);
                 command.ExecuteNonQuery();
                 connection.Close();
             }
