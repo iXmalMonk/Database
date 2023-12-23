@@ -13,7 +13,9 @@ namespace Program.Controllers
             using (var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection")))
             {
                 connection.Open();
-                var command = new NpgsqlCommand("select toc.id, dotw.title, t.start_time, t.end_time from fc.timetable_of_classes toc join fc.day_of_the_week dotw on toc.day_of_the_week_id = dotw.id join fc.time t on toc.time_id = t.id", connection);
+                var command = new NpgsqlCommand("select toc.id, dotw.title, t.start_time, t.end_time from fc.timetable_of_classes toc " +
+                    "join fc.day_of_the_week dotw on toc.day_of_the_week_id = dotw.id " +
+                    "join fc.time t on toc.time_id = t.id", connection);
                 var reader = command.ExecuteReader();
                 timetableOfClasses.TOC = new List<TOCModel>();
                 while (reader.Read())

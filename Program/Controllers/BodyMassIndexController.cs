@@ -13,7 +13,8 @@ namespace Program.Controllers
             using (var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection")))
             {
                 connection.Open();
-                var command = new NpgsqlCommand("select bmi.id, bmi.weight, bmi.height, bmi.bms, c.full_name from fc.body_mass_index bmi join fc.client c on bmi.id = c.body_mass_index_id", connection);
+                var command = new NpgsqlCommand("select bmi.id, bmi.weight, bmi.height, bmi.bms, c.full_name from fc.body_mass_index bmi " +
+                    "join fc.client c on bmi.id = c.body_mass_index_id", connection);
                 var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
